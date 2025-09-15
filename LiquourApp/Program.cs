@@ -2,7 +2,7 @@ using LiquourApp.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using Npgsql.EntityFrameworkCore.PostgreSQL;
+// The Npgsql namespace is already included via Microsoft.EntityFrameworkCore.UseNpgsql()
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,7 +15,7 @@ builder.Services.AddScoped<LiquourApp.Services.AuthService>();
 
 // Configure database context
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Configure JWT authentication
 builder.Services.AddAuthentication(options => 
